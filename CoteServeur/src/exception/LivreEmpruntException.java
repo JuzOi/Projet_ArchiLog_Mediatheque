@@ -1,6 +1,6 @@
 package exception;
 
-public class LivreException extends ReservationException {
+public class LivreEmpruntException extends EmpruntException {
 	@Override
 	public String getMessage() {
 		return "Ce livre est déjà emprunté";

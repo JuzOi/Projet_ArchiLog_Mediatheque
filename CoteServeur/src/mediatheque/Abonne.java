@@ -1,6 +1,10 @@
-package serveur;
+package mediatheque;
+
+import document.Document;
 
 import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +40,8 @@ public class Abonne implements Runnable {
 	}
 	
 	public int getAge() {
-		// TODO
+		LocalDate today = LocalDate.now();
+		Period age = Period.between(dateDeNaissance, today);
+		return age.getYears();
 	}
 }

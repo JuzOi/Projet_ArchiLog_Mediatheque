@@ -1,6 +1,6 @@
 package exception;
 
-public class DvdException extends ReservationException {
+public class DvdEmpruntException extends EmpruntException {
 	 @Override
 	 public String getMessage() {
 		 return "Ce dvd est déjà emprunté";

@@ -1,11 +1,12 @@
-package serveur;
+package service;
 
-import java.io.IOException;
+import serveur.Service;
+
 import java.net.Socket;
 
-public class ServiceRetour extends Service {
+public class ServiceEmprunt extends Service {
 
-	public ServiceRetour(Socket socket) {
+	public ServiceEmprunt(Socket socket) {
 		super(socket);
 		// TODO Auto-generated constructor stub
 	}

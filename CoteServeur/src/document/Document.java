@@ -1,7 +1,9 @@
-package serveur;
+package document;
 
 import exception.EmpruntException;
 import exception.ReservationException;
+import mediatheque.Abonne;
+import mediatheque.IDocument;
 
 public abstract class Document implements IDocument {
 	private int numero;
@@ -40,5 +42,4 @@ public abstract class Document implements IDocument {
 		reserver = null;
 		estEmprunter = false;
 	}
-
 }

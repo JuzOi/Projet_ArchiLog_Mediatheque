@@ -1,4 +1,4 @@
-package serveur;
+package mediatheque;
 
 import exception.EmpruntException;
 import exception.ReservationException;

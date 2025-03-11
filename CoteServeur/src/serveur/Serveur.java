@@ -21,7 +21,7 @@ public class Serveur implements Runnable {
 			while(true) 
 				new Thread(service.getConstructor(Socket.class).newInstance(listen_socket.accept())).start();
 			
-		}catch(IOException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+		}catch(Exception e) {
 			try {
 				this.listen_socket.close();
 			}catch(IOException e1) {}

@@ -1,5 +1,8 @@
 package serveur;
 
+import mediatheque.Abonne;
+import mediatheque.IDocument;
+
 import java.net.Socket;
 import java.util.List;
 

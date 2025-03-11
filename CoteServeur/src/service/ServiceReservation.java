@@ -1,4 +1,4 @@
-package serveur;
+package service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,6 +7,9 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 import exception.ReservationException;
+import mediatheque.Abonne;
+import mediatheque.IDocument;
+import serveur.Service;
 
 public class ServiceReservation extends Service {
 	
