@@ -12,15 +12,17 @@ import mediatheque.IDocument;
 import serveur.Service;
 
 public class ServiceReservation extends Service {
-	
+	private static int cpt = 1;
+	private final int numero;
 	
 	public ServiceReservation(Socket socket) {
 		super(socket);
-		// TODO Auto-generated constructor stub
+		numero = cpt++;
 	}
 
 	@Override
 	public void run() {
+		System.out.println("*********Connexion "+this.numero+" démarrée :"+this.getClient().getInetAddress());
 		try {
 			BufferedReader in = new BufferedReader (new InputStreamReader(getClient().getInputStream ( )));
 			PrintWriter out = new PrintWriter (getClient().getOutputStream ( ), true);
@@ -33,16 +35,21 @@ public class ServiceReservation extends Service {
 			
 			IDocument d = getDocument(numDocument);
 			Abonne a = getAbonne(numAbonne);
-			
-			try {
-				d.reserver(a);
-			} catch (ReservationException e) {
-				e.getMessage();
+
+			if (a != null && d != null) {
+				try {
+					d.reserver(a);
+				} catch (ReservationException e) {
+					out.println(e.getMessage());
+				}
 			}
-		} catch (IOException e) {
-			
-		}
-		
+		} catch (IOException e) {}
+
+		System.out.println("*********Connexion " + numero + " terminée");
+		try {getClient().close();} catch (IOException e2) {}
 	}
 
+	protected void finalize() throws Throwable {
+		getClient().close();
+	}
 }

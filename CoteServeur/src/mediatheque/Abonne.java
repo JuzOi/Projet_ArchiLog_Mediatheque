@@ -40,8 +40,6 @@ public class Abonne implements Runnable {
 	}
 	
 	public int getAge() {
-		LocalDate today = LocalDate.now();
-		Period age = Period.between(dateDeNaissance, today);
-		return age.getYears();
+		return Period.between(dateDeNaissance, LocalDate.now()).getYears();
 	}
 }
