@@ -1,9 +1,5 @@
 package document;
 
-import exception.EmpruntException;
-import exception.ReservationException;
-import mediatheque.Abonne;
-
 public class Livre extends Document {
 	private int nbPages;
 
@@ -14,5 +10,10 @@ public class Livre extends Document {
 	
 	public int getNombreDePages() {
 		return nbPages;
+	}
+
+	@Override
+	public String toString() {
+		return "livre";
 	}
 }

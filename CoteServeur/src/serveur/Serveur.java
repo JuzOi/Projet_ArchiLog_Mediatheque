@@ -9,7 +9,7 @@ public class Serveur implements Runnable {
 	private ServerSocket listen_socket;
 	private Class<? extends Service> service;
 	
-	public Serveur(int port, Class<? extends Service> service) throws IOException {
+	public Serveur(Class<? extends Service> service, int port) throws IOException {
 		this.listen_socket = new ServerSocket(port);
 		this.service = service;
 	}
@@ -21,11 +21,13 @@ public class Serveur implements Runnable {
 			while(true) 
 				new Thread(service.getConstructor(Socket.class).newInstance(listen_socket.accept())).start();
 			
-		}catch(Exception e) {
+		}catch(IOException e) {
 			try {
 				this.listen_socket.close();
 			}catch(IOException e1) {}
 			System.err.println("Arrêt du serveur au port : " + listen_socket.getLocalPort());
+		} catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+			System.err.println("Erreur lors de l'instanciation du service : " + e.getMessage());
 		}
 	}
 	

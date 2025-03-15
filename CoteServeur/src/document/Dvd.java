@@ -21,4 +21,9 @@ public class Dvd extends Document {
 			throw new EmpruntException("vous n’avez pas l’âge pour emprunter ce DVD");
 		super.emprunter(ab);
 	}
+
+	@Override
+	public String toString() {
+		return "DVD";
+	}
 }
