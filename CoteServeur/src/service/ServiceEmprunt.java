@@ -29,20 +29,24 @@ public class ServiceEmprunt extends Service {
 			PrintWriter out = new PrintWriter (getClient().getOutputStream ( ), true);
 
 			out.println("Veuillez saisir votre numéro d'abonné et le numéro du document que vous souhaitez emprunter");
-			String reponse = in.readLine();
-			String[] parts = reponse.split(" ");
-			int numAbonne = Integer.parseInt(parts[0]);
-			int numDocument = Integer.parseInt(parts[1]);
+			try {
+				String reponse = in.readLine();
+				String[] parts = reponse.split(" ");
+				int numAbonne = Integer.parseInt(parts[0]);
+				int numDocument = Integer.parseInt(parts[1]);
 
-			IDocument d = getDocument(numDocument);
-			Abonne a = getAbonne(numAbonne);
+				IDocument d = getDocument(numDocument);
+				Abonne a = getAbonne(numAbonne);
 
-			if (a != null && d != null) {
-				try {
-					d.emprunter(a);
-				} catch (EmpruntException e) {
-					out.println(e.getMessage());
+				if (a != null && d != null) {
+					synchronized (d) {
+						d.emprunter(a);
+					}
 				}
+			} catch (EmpruntException e) {
+				out.println(e.getMessage());
+			} catch (Exception e){
+				out.println("Veuillez saisir <numéro d'abonné> <numéro du document>");
 			}
 		} catch (IOException e) {}
 

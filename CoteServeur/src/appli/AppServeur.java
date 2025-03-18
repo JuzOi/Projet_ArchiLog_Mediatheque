@@ -1,6 +1,5 @@
 package appli;
 
-import document.Document;
 import document.Dvd;
 import document.Livre;
 import mediatheque.Abonne;
@@ -11,7 +10,11 @@ import service.ServiceEmprunt;
 import service.ServiceReservation;
 import service.ServiceRetour;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +30,7 @@ public class AppServeur {
             new Thread(new Serveur(ServiceReservation.class, 2000)).start();
             new Thread(new Serveur(ServiceEmprunt.class, 3000)).start();
             new Thread(new Serveur(ServiceRetour.class, 4000)).start();
+
         } catch (IOException e){
             System.err.println("Pb lors de la création des serveurs : " + e);
         }

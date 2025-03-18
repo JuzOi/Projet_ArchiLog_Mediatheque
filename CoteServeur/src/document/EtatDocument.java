@@ -3,9 +3,10 @@ package document;
 import exception.EmpruntException;
 import exception.ReservationException;
 import mediatheque.Abonne;
+import mediatheque.IDocument;
 
 public interface EtatDocument {
-    EtatDocument reserver(Document document, Abonne ab) throws ReservationException;
-    EtatDocument emprunter(Document document, Abonne ab) throws EmpruntException;
-    EtatDocument retourner(Document document);
+    EtatDocument reserver(IDocument document, Abonne ab) throws ReservationException;
+    EtatDocument emprunter(IDocument document, Abonne ab) throws EmpruntException;
+    EtatDocument retourner(IDocument document);
 }

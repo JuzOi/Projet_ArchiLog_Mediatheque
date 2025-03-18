@@ -1,25 +1,30 @@
 package etat;
 
-import document.Document;
 import document.EtatDocument;
 import exception.EmpruntException;
 import exception.ReservationException;
 import mediatheque.Abonne;
+import mediatheque.IDocument;
 
 
 public class Disponible extends Etat {
+    public Disponible() {
+        this.abonne = null;
+        this.dateFinReservation = null;
+        this.finReservation = null;
+    }
     @Override
-    public EtatDocument reserver(Document document, Abonne ab) throws ReservationException {
-        return new Reserve(ab);
+    public EtatDocument reserver(IDocument document, Abonne ab) throws ReservationException {
+        return new Reserve(document, ab);
     }
 
     @Override
-    public EtatDocument emprunter(Document document, Abonne ab) throws EmpruntException {
+    public EtatDocument emprunter(IDocument document, Abonne ab) throws EmpruntException {
         return new Emprunte();
     }
 
     @Override
-    public EtatDocument retourner(Document document) {
+    public EtatDocument retourner(IDocument document) {
         return this;
     }
 }

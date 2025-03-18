@@ -34,7 +34,9 @@ public class ServiceRetour extends Service {
 			IDocument d = getDocument(numDocument);
 
 			if (d != null)
-				d.retourner();
+				synchronized (d) {
+					d.retourner();
+				}
 
 		} catch (IOException e) {}
 
