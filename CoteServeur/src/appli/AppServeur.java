@@ -67,21 +67,21 @@ public class AppServeur {
     public static List<Abonne> initAbonnes() {
         List<Abonne> abonnes = new ArrayList<>();
 
-        abonnes.add(new Abonne(1, "Alice Martin", LocalDate.of(1990, 5, 12)));
-        abonnes.add(new Abonne(2, "Bob Dupont", LocalDate.of(1985, 3, 28)));
-        abonnes.add(new Abonne(3, "Chloé Durant", LocalDate.of(2002, 7, 15)));
-        abonnes.add(new Abonne(4, "David Moreau", LocalDate.of(2010, 10, 5)));
-        abonnes.add(new Abonne(5, "Emma Leclerc", LocalDate.of(2005, 2, 18)));
-        abonnes.add(new Abonne(6, "Fabien Garnier", LocalDate.of(1998, 8, 30)));
-        abonnes.add(new Abonne(7, "Gaëlle Marchand", LocalDate.of(1975, 12, 22)));
-        abonnes.add(new Abonne(8, "Hugo Mercier", LocalDate.of(2008, 9, 10)));
-        abonnes.add(new Abonne(9, "Inès Bernard", LocalDate.of(2000, 11, 3)));
-        abonnes.add(new Abonne(10, "Jules Petit", LocalDate.of(2012, 1, 20)));
-        abonnes.add(new Abonne(11, "Karine Leroy", LocalDate.of(1993, 4, 14)));
-        abonnes.add(new Abonne(12, "Louis Fontaine", LocalDate.of(1980, 6, 25)));
-        abonnes.add(new Abonne(13, "Marie Lambert", LocalDate.of(2003, 3, 6)));
-        abonnes.add(new Abonne(14, "Nicolas Perrin", LocalDate.of(2007, 7, 9)));
-        abonnes.add(new Abonne(15, "Océane Girard", LocalDate.of(1995, 10, 17)));
+        abonnes.add(new Abonne(1, "Alice Martin", LocalDate.of(1990, 5, 12), "alice.martin@email.com"));
+        abonnes.add(new Abonne(2, "Bob Dupont", LocalDate.of(1985, 3, 28), "bob.dupont@email.com"));
+        abonnes.add(new Abonne(3, "Chloé Durant", LocalDate.of(2002, 7, 15), "chloe.durant@email.com"));
+        abonnes.add(new Abonne(4, "David Moreau", LocalDate.of(2010, 10, 5), "david.moreau@email.com"));
+        abonnes.add(new Abonne(5, "Emma Leclerc", LocalDate.of(2005, 2, 18), "emma.leclerc@email.com"));
+        abonnes.add(new Abonne(6, "Fabien Garnier", LocalDate.of(1998, 8, 30), "fabien.garnier@email.com"));
+        abonnes.add(new Abonne(7, "Gaëlle Marchand", LocalDate.of(1975, 12, 22), "gaelle.marchand@email.com"));
+        abonnes.add(new Abonne(8, "Hugo Mercier", LocalDate.of(2008, 9, 10), "hugo.mercier@email.com"));
+        abonnes.add(new Abonne(9, "Inès Bernard", LocalDate.of(2000, 11, 3), "ines.bernard@email.com"));
+        abonnes.add(new Abonne(10, "Jules Petit", LocalDate.of(2012, 1, 20), "jules.petit@email.com"));
+        abonnes.add(new Abonne(11, "Karine Leroy", LocalDate.of(1993, 4, 14), "karine.leroy@email.com"));
+        abonnes.add(new Abonne(12, "Louis Fontaine", LocalDate.of(1980, 6, 25), "louis.fontaine@email.com"));
+        abonnes.add(new Abonne(13, "Marie Lambert", LocalDate.of(2003, 3, 6), "marie.lambert@email.com"));
+        abonnes.add(new Abonne(14, "Nicolas Perrin", LocalDate.of(2007, 7, 9), "nicolas.perrin@email.com"));
+        abonnes.add(new Abonne(15, "Océane Girard", LocalDate.of(1995, 10, 17), "oceane.girard@email.com"));
 
         return abonnes;
     }
