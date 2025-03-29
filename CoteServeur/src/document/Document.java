@@ -23,17 +23,17 @@ public abstract class Document implements IDocument {
 	}
 	
 	@Override
-	public void reserver(Abonne ab) throws ReservationException {
+	public synchronized void reserver(Abonne ab) throws ReservationException {
 		etat = etat.reserver(this, ab);
 	}
 
 	@Override
-	public void emprunter(Abonne ab) throws EmpruntException {
+	public synchronized void emprunter(Abonne ab) throws EmpruntException {
 		etat = etat.emprunter(this, ab);
 	}
 
 	@Override
-	public void retourner() {
+	public synchronized void retourner() {
 		etat = etat.retourner(this);
 	}
 }

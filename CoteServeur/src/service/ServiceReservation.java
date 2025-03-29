@@ -38,10 +38,8 @@ public class ServiceReservation extends Service {
 				IDocument d = getDocument(numDocument);
 				Abonne a = getAbonne(numAbonne);
 
-				if (a != null && d != null) {
-					synchronized (d) {
-						d.reserver(a);
-					}
+				if (a != null && d != null && !a.estBanni()) {
+					d.reserver(a);
 				}
 
 			} catch (ReservationException e) {

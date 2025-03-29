@@ -1,39 +1,40 @@
 package mediatheque;
 
-import document.Document;
-import etat.FinReservation;
-
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
+import java.util.*;
 
-public class Abonne implements Runnable {
+public class Abonne  {
 	private int numero;
 	private String nom;
 	private LocalDate dateDeNaissance;
 	private List<IDocument> documents;
-	private Timer finReservation;
-	
-	public Abonne(int numero, String nom, LocalDate dateDeNaissance) {
+	private boolean estBanni;
+	private String email;
+
+	public Abonne(int numero, String nom, LocalDate dateDeNaissance, String email) {
 		this.numero = numero;
 		this.nom = nom;
 		this.dateDeNaissance = dateDeNaissance;
-		this.documents = new ArrayList<>();
-		this.finReservation = null;
+		this.estBanni = false;
+		this.email = email;
 	}
 
-	@Override
-	public void run() {
-		// TO DO
+	public void bannir(){
+		long unMois = 30L * 24 * 60 * 60 * 1000;
+		new Timer(nom).schedule(new Debanissement(this), unMois);
+		estBanni = true;
+		for (IDocument document : documents) {
+			document.retourner();
+		}
 	}
 
-	public void reserve(Document document) {
+	public void debannir(){
+		estBanni = false;
 	}
 
-	public Document getDocumentReserve() {
-		return null;
+	public boolean estBanni(){
+		return estBanni;
 	}
 	
 	public int numero() {
@@ -46,5 +47,9 @@ public class Abonne implements Runnable {
 
 	public String getNom() {
 		return nom;
+	}
+
+	public String getEmail() {
+		return email;
 	}
 }

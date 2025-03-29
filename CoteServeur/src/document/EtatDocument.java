@@ -8,5 +8,5 @@ import mediatheque.IDocument;
 public interface EtatDocument {
     EtatDocument reserver(IDocument document, Abonne ab) throws ReservationException;
     EtatDocument emprunter(IDocument document, Abonne ab) throws EmpruntException;
-    EtatDocument retourner(IDocument document);
+    EtatDocument retourner(IDocument document) throws EmpruntException;
 }

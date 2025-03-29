@@ -16,7 +16,7 @@ public class Dvd extends Document {
 	}
 
 	@Override
-	public void emprunter(Abonne ab) throws EmpruntException {
+	public synchronized void emprunter(Abonne ab) throws EmpruntException {
 		if (adulte && ab.getAge() <= 16)
 			throw new EmpruntException("vous n’avez pas l’âge pour emprunter ce DVD");
 		super.emprunter(ab);

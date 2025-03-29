@@ -38,10 +38,8 @@ public class ServiceEmprunt extends Service {
 				IDocument d = getDocument(numDocument);
 				Abonne a = getAbonne(numAbonne);
 
-				if (a != null && d != null) {
-					synchronized (d) {
-						d.emprunter(a);
-					}
+				if (a != null && d != null && !a.estBanni()) {
+					d.emprunter(a);
 				}
 			} catch (EmpruntException e) {
 				out.println(e.getMessage());
