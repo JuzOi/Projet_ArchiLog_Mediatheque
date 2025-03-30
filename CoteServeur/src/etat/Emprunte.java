@@ -55,7 +55,7 @@ public class Emprunte extends Etat {
 
     private void envoyerAlerteMail(Abonne abonne) {
         final String from = "jeanfrancois.brette@u-paris.fr";
-        final String host = "smtp.wakantanka.com";
+        final String host = "smtp.gmail.com";
 
         Properties properties = System.getProperties();
         properties.setProperty("mail.smtp.host", host);

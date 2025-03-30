@@ -8,7 +8,8 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class Appli {
-    public static void main(String[] args) {
+    public static void main(String[] arg) {
+        String[] args = {"BTTP:localhost:4000"};
         if (args.length != 1 || !args[0].startsWith("BTTP:")) {
             System.err.println("Usage : BTTP:host:port");
             return;

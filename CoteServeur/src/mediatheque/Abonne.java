@@ -8,7 +8,6 @@ public class Abonne  {
 	private int numero;
 	private String nom;
 	private LocalDate dateDeNaissance;
-	private List<IDocument> documents;
 	private boolean estBanni;
 	private String email;
 
