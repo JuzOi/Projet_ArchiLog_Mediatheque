@@ -1,6 +1,5 @@
 package document;
 
-import etat.Disponible;
 import exception.EmpruntException;
 import exception.ReservationException;
 import mediatheque.Abonne;
@@ -11,10 +10,10 @@ public abstract class Document implements IDocument {
 	private String titre;
 	private EtatDocument etat;
 	
-	public Document(int numero, String titre) {
+	public Document(int numero, String titre, EtatDocument etatInitial) {
 		this.numero = numero;
 		this.titre = titre;
-		this.etat = new Disponible();
+		this.etat = etatInitial;
 	}
 	
 	@Override

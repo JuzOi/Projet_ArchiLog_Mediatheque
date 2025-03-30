@@ -2,6 +2,7 @@ package appli;
 
 import document.Dvd;
 import document.Livre;
+import etat.Disponible;
 import mediatheque.Abonne;
 import mediatheque.IDocument;
 import serveur.Serveur;
@@ -39,27 +40,27 @@ public class AppServeur {
     public static List<IDocument> initDocuments() {
         List<IDocument> documents = new ArrayList<>();
 
-        documents.add(new Livre(1, "Les Misérables", 1500));
-        documents.add(new Livre(2, "Le Petit Prince", 96));
-        documents.add(new Livre(3, "1984", 328));
-        documents.add(new Livre(4, "L'Étranger", 123));
-        documents.add(new Livre(5, "Harry Potter à l'école des sorciers", 350));
-        documents.add(new Livre(6, "Le Seigneur des Anneaux", 1178));
-        documents.add(new Livre(7, "La Peste", 320));
-        documents.add(new Livre(8, "Le Comte de Monte-Cristo", 1312));
-        documents.add(new Livre(9, "Don Quichotte", 863));
-        documents.add(new Livre(10, "Le Rouge et le Noir", 576));
+        documents.add(new Livre(1, "Les Misérables", 1500, new Disponible()));
+        documents.add(new Livre(2, "Le Petit Prince", 96, new Disponible()));
+        documents.add(new Livre(3, "1984", 328, new Disponible()));
+        documents.add(new Livre(4, "L'Étranger", 123, new Disponible()));
+        documents.add(new Livre(5, "Harry Potter à l'école des sorciers", 350, new Disponible()));
+        documents.add(new Livre(6, "Le Seigneur des Anneaux", 1178, new Disponible()));
+        documents.add(new Livre(7, "La Peste", 320, new Disponible()));
+        documents.add(new Livre(8, "Le Comte de Monte-Cristo", 1312, new Disponible()));
+        documents.add(new Livre(9, "Don Quichotte", 863, new Disponible()));
+        documents.add(new Livre(10, "Le Rouge et le Noir", 576, new Disponible()));
 
-        documents.add(new Dvd(11, "Inception", false));
-        documents.add(new Dvd(12, "Le Roi Lion", false));
-        documents.add(new Dvd(13, "Interstellar", false));
-        documents.add(new Dvd(14, "Le Parrain", true));
-        documents.add(new Dvd(15, "Pulp Fiction", true));
-        documents.add(new Dvd(16, "La La Land", false));
-        documents.add(new Dvd(17, "Joker", true));
-        documents.add(new Dvd(18, "Le Fabuleux Destin d’Amélie Poulain", false));
-        documents.add(new Dvd(19, "Fight Club", true));
-        documents.add(new Dvd(20, "Shrek", false));
+        documents.add(new Dvd(11, "Inception", false, new Disponible()));
+        documents.add(new Dvd(12, "Le Roi Lion", false, new Disponible()));
+        documents.add(new Dvd(13, "Interstellar", false, new Disponible()));
+        documents.add(new Dvd(14, "Le Parrain", true, new Disponible()));
+        documents.add(new Dvd(15, "Pulp Fiction", true, new Disponible()));
+        documents.add(new Dvd(16, "La La Land", false, new Disponible()));
+        documents.add(new Dvd(17, "Joker", true, new Disponible()));
+        documents.add(new Dvd(18, "Le Fabuleux Destin d’Amélie Poulain", false, new Disponible()));
+        documents.add(new Dvd(19, "Fight Club", true, new Disponible()));
+        documents.add(new Dvd(20, "Shrek", false, new Disponible()));
 
         return documents;
     }
