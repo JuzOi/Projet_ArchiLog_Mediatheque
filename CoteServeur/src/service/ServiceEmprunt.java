@@ -1,5 +1,6 @@
 package service;
 
+import bttp2.Codage;
 import exception.EmpruntException;
 import exception.ReservationException;
 import mediatheque.Abonne;
@@ -23,32 +24,50 @@ public class ServiceEmprunt extends Service {
 
 	@Override
 	public void run() {
-		System.out.println("*********Connexion "+this.numero+" démarrée :"+this.getClient().getInetAddress());
+		System.out.println("*********Connexion "+this.numero+" démarrée :"+this.getClient().getInetAddress() + " au service Emprunt");
 		try {
 			BufferedReader in = new BufferedReader (new InputStreamReader(getClient().getInputStream ( )));
 			PrintWriter out = new PrintWriter (getClient().getOutputStream ( ), true);
 
 			out.println("Veuillez saisir votre numéro d'abonné et le numéro du document que vous souhaitez emprunter");
-			try {
-				String reponse = in.readLine();
-				String[] parts = reponse.split(" ");
-				int numAbonne = Integer.parseInt(parts[0]);
-				int numDocument = Integer.parseInt(parts[1]);
 
-				IDocument d = getDocument(numDocument);
-				Abonne a = getAbonne(numAbonne);
+			String reponse = Codage.decoder(in.readLine());
 
-				if (a != null && d != null && !a.estBanni()) {
-					d.emprunter(a);
+			String[] lignes = reponse.split("\n");
+			StringBuilder retour = new StringBuilder();
+			for (String ligne : lignes) {
+				if (!retour.isEmpty())
+					retour.append("\n");
+				try {
+					String[] parts = ligne.split(" ");
+
+					int numAbonne = Integer.parseInt(parts[0]);
+					int numDocument = Integer.parseInt(parts[1]);
+
+					IDocument d = getDocument(numDocument);
+					Abonne a = getAbonne(numAbonne);
+
+					if (a != null && d != null) {
+						if (a.estBanni()) {
+							retour.append("Vous êtes banni de la tribu");
+							break;
+						}
+						try {
+							d.emprunter(a);
+							retour.append(d.toString()).append(" n°").append(d.numero()).append(" emprunté avec succès");
+						}catch (EmpruntException e) {
+							retour.append(e.getMessage());
+						}
+
+					}
+				} catch (Exception e) {
+					retour.append("Veuillez saisir <numéro d'abonné> <numéro du document>");
 				}
-			} catch (EmpruntException e) {
-				out.println(e.getMessage());
-			} catch (Exception e){
-				out.println("Veuillez saisir <numéro d'abonné> <numéro du document>");
 			}
+			out.println(Codage.coder(retour.toString()));
 		} catch (IOException e) {}
 
-		System.out.println("*********Connexion " + numero + " terminée");
+		System.out.println("*********Connexion " + numero + " au service Emprunt terminée");
 		try {getClient().close();} catch (IOException e2) {}
 	}
 

@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class Appli {
     public static void main(String[] arg) {
-        String[] args = {"BTTP:localhost:2000"};
+        String[] args = {"BTTP:localhost:3000"};
         if (args.length != 1 || !args[0].startsWith("BTTP:")) {
             System.err.println("Usage : BTTP:host:port");
             return;
@@ -34,17 +34,17 @@ public class Appli {
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
                 Scanner scanner = new Scanner(System.in)
         ){
-            String question = Codage.decoder(in.readLine());
+                String question = Codage.decoder(in.readLine());
 
-            System.out.println(question);
+                System.out.println(question);
 
-            String reponse = scanner.nextLine();
-            out.println(Codage.coder(reponse));
+                String reponse = scanner.nextLine();
+                out.println(Codage.coder(reponse));
 
 
-            String retour = Codage.decoder(in.readLine());
-            if (retour != null)
-                System.out.println(retour);
+                String retour = Codage.decoder(in.readLine());
+                if (retour != null)
+                    System.out.println(retour);
         } catch (IOException e){
             System.err.println("Erreur de communication : " + e.getMessage());
         }

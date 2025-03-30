@@ -9,6 +9,8 @@ import mediatheque.IDocument;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.Timer;
+
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
 import jakarta.mail.Session;
@@ -16,9 +18,13 @@ import jakarta.mail.Session;
 public class Emprunte extends Etat {
     private Abonne abonne;
     private List<Abonne> listeAlertes;
-    public Emprunte(Abonne abonne) {
+    private Timer dureeEmprunt;
+    public Emprunte(IDocument document, Abonne abonne) {
         this.abonne = abonne;
         this.listeAlertes = new ArrayList<>();
+        long deuxSemaines = 14L * 24 * 60 * 60 * 1000;
+        dureeEmprunt = new Timer(abonne.getNom());
+        dureeEmprunt.schedule(new FinEmprunt(document, abonne), deuxSemaines);
     }
     @Override
     public EtatDocument reserver(IDocument document, Abonne ab) throws ReservationException {

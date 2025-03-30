@@ -15,12 +15,8 @@ public class AttenteReservation extends TimerTask {
     }
     @Override
     public void run() {
-        try{
-            notifyAll();
-            document.reserver(abonneA);
-        } catch(ReservationException e){
-
+        synchronized (document) {
+            document.notifyAll();
         }
     }
-
 }

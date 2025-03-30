@@ -1,5 +1,6 @@
 package service;
 
+import bttp2.Codage;
 import exception.ReservationException;
 import mediatheque.Abonne;
 import mediatheque.IDocument;
@@ -22,23 +23,40 @@ public class ServiceRetour extends Service {
 
 	@Override
 	public void run() {
-		System.out.println("*********Connexion "+this.numero+" démarrée :"+this.getClient().getInetAddress());
+		System.out.println("*********Connexion "+this.numero+" démarrée :"+this.getClient().getInetAddress() + " au service Retour");
 		try {
 			BufferedReader in = new BufferedReader (new InputStreamReader(getClient().getInputStream ( )));
 			PrintWriter out = new PrintWriter (getClient().getOutputStream ( ), true);
 
 			out.println("Veuillez saisir le numéro du document que vous souhaitez retourner");
-			String reponse = in.readLine();
-			int numDocument = Integer.parseInt(reponse);
 
-			IDocument d = getDocument(numDocument);
+			String reponse = Codage.decoder(in.readLine());
 
-			if (d != null )
-				d.retourner();
+			String[] lignes = reponse.split("\n");
+			StringBuilder retour = new StringBuilder();
 
+			for (String ligne : lignes) {
+				if (!retour.isEmpty())
+					retour.append("\n");
+				try {
+					int numDocument = Integer.parseInt(ligne);
+
+					IDocument d = getDocument(numDocument);
+
+					if (d != null){
+						d.retourner();
+						retour.append(d.toString()).append(" retourné avec succès");
+					}
+					else
+						retour.append("Le document n°" + numDocument + " n'existe pas");
+				}catch (Exception e) {
+					retour.append("Veuillez saisir <numéro du document> valide");
+				}
+			}
+			out.println(Codage.coder(retour.toString()));
 		} catch (IOException e) {}
 
-		System.out.println("*********Connexion " + numero + " terminée");
+		System.out.println("*********Connexion " + numero + " au service Retour terminée");
 		try {getClient().close();} catch (IOException e2) {}
 	}
 

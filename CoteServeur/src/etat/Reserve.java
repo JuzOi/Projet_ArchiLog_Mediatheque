@@ -19,45 +19,53 @@ public class Reserve extends Etat {
 
     public Reserve(IDocument document, Abonne ab) {
         this.abonneB = ab;
-        this.dateFinReservation = LocalDateTime.now().plusHours(1);
+        this.dateFinReservation = LocalDateTime.now().plusSeconds(20);
         this.finReservation = new Timer(ab.getNom());
-        this.finReservation.schedule(new FinReservation(document), 3600000);
+        this.finReservation.schedule(new FinReservation(document), 20000);
     }
 
     @Override
     public EtatDocument reserver(IDocument document, Abonne ab) throws ReservationException {
-        long tempsRestant = Duration.between(LocalDateTime.now(), dateFinReservation).toSeconds();
-
-        if (tempsRestant <=60 && abonneA == null) {
-            try {
-                document.wait();
-            } catch (InterruptedException e) {
+        synchronized (document) {
+            long tempsRestant = Duration.between(LocalDateTime.now(), dateFinReservation).toSeconds();
+            if(abonneA == null && ab != abonneB && tempsRestant <= 60) {
+                finReservation.cancel();
+                abonneA = ab;
+                attenteReservation = new Timer(ab.getNom());
+                attenteReservation.schedule(new AttenteReservation(document, ab), tempsRestant * 1000);
+                throw new ReservationException("Vous écoutez une musique céleste");
             }
-            abonneA = ab;
-            attenteReservation = new Timer(ab.getNom());
-            attenteReservation.schedule(new AttenteReservation(document, ab), tempsRestant * 1000);
-            throw new ReservationException("Vous écoutez une musique céleste");
+            if (tempsRestant > 0 && tempsRestant <= 60 && abonneA == ab) {
+                try {
+                    document.wait();
+                } catch (InterruptedException e) {
+                }
+                tempsRestant = Duration.between(LocalDateTime.now(), dateFinReservation).toSeconds();
+                if (tempsRestant > 0)
+                    throw new ReservationException("Vous n'avez pas de chance pour ce document mais vous bénéficiez d'un concert céleste gratuit, vous auriez dû faire une offrande plus importante au grand chaman");
+                return new Reserve(document, abonneA);
+            }
+            throw new ReservationException("Ce " + document.toString() + " est réservé jusqu’à " + dateFinReservation.getHour() + ":" + dateFinReservation.getMinute());
+
         }
-        throw new ReservationException("Ce " + document.toString() + " est réservé jusqu’à " + dateFinReservation.getHour() + ":" + dateFinReservation.getMinute());
     }
 
     @Override
     public EtatDocument emprunter(IDocument document, Abonne ab) throws EmpruntException {
         if (LocalDateTime.now().isAfter(dateFinReservation) || abonneB.equals(ab)) {
             if (abonneA != null) {
-                notifyAll();
+                document.notifyAll();
                 attenteReservation.cancel();
+                abonneA = null;
             }
-            long deuxSemaines = 14L * 24 * 60 * 60 * 1000;
-            dureeEmprunt = new Timer(abonneB.getNom());
-            dureeEmprunt.schedule(new FinEmprunt(abonneB), deuxSemaines);
-            return new Emprunte(abonneB);
+            finReservation.cancel();
+            return new Emprunte(document, abonneB);
         }
         throw new EmpruntException("Ce " + document.toString() + " est déjà réservé");
     }
 
     @Override
-    public EtatDocument retourner(IDocument document) throws EmpruntException {
-        throw new EmpruntException("Ce " + document.toString() + " est déjà réservé");
+    public EtatDocument retourner(IDocument document){
+        return new Disponible();
     }
 }

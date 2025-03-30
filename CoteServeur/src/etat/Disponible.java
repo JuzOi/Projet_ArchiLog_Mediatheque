@@ -19,10 +19,7 @@ public class Disponible extends Etat {
 
     @Override
     public EtatDocument emprunter(IDocument document, Abonne ab) throws EmpruntException {
-        long deuxSemaines = 14L * 24 * 60 * 60 * 1000;
-        dureeEmprunt = new Timer(ab.getNom());
-        dureeEmprunt.schedule(new FinEmprunt(ab), deuxSemaines);
-        return new Emprunte(ab);
+        return new Emprunte(document, ab);
     }
 
     @Override

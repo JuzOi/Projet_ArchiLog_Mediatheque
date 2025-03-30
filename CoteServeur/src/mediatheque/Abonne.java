@@ -24,9 +24,6 @@ public class Abonne  {
 		long unMois = 30L * 24 * 60 * 60 * 1000;
 		new Timer(nom).schedule(new Debanissement(this), unMois);
 		estBanni = true;
-		for (IDocument document : documents) {
-			document.retourner();
-		}
 	}
 
 	public void debannir(){

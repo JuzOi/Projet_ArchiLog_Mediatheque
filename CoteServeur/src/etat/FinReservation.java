@@ -11,6 +11,6 @@ public class FinReservation extends TimerTask {
     }
     @Override
     public void run() {
-        this.document.retourner();
+        document.retourner();
     }
 }
