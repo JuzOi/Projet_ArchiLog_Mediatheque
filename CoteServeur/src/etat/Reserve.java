@@ -19,9 +19,9 @@ public class Reserve extends Etat {
 
     public Reserve(IDocument document, Abonne ab) {
         this.abonneB = ab;
-        this.dateFinReservation = LocalDateTime.now().plusSeconds(20);
+        this.dateFinReservation = LocalDateTime.now().plusHours(1);
         this.finReservation = new Timer(ab.getNom());
-        this.finReservation.schedule(new FinReservation(document), 20000);
+        this.finReservation.schedule(new FinReservation(document), 3600000);
     }
 
     @Override

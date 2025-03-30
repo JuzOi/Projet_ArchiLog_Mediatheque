@@ -8,8 +8,7 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class Appli {
-    public static void main(String[] arg) {
-        String[] args = {"BTTP:localhost:3000"};
+    public static void main(String[] args) {
         if (args.length != 1 || !args[0].startsWith("BTTP:")) {
             System.err.println("Usage : BTTP:host:port");
             return;
@@ -33,21 +32,24 @@ public class Appli {
                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
                 Scanner scanner = new Scanner(System.in)
-        ){
-                String question = Codage.decoder(in.readLine());
-
+        ) {
+            String question;
+            while ((question = Codage.decoder(in.readLine())) != null) {
                 System.out.println(question);
-
                 String reponse = scanner.nextLine();
+                if (reponse.equalsIgnoreCase("")) {
+                    break;
+                }
                 out.println(Codage.coder(reponse));
 
-
                 String retour = Codage.decoder(in.readLine());
-                if (retour != null)
+                if (retour != null) {
                     System.out.println(retour);
-        } catch (IOException e){
+                }
+            }
+        } catch (IOException e) {
             System.err.println("Erreur de communication : " + e.getMessage());
         }
-        System.out.printf("Déconnexion terminée.");
+        System.out.println("Déconnexion terminée.");
     }
 }
